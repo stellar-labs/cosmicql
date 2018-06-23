@@ -2,6 +2,8 @@
 
 HTTP APIs query language.
 
+![GitHub tag](https://img.shields.io/github/tag/stellar-labs/cosmicql.svg)
+
 ## Summary
 
 - [Introduction](#introduction)

@@ -9,7 +9,6 @@ HTTP APIs query language.
 - [Introduction](#introduction)
 - [Why choosing CosmicQL over GraphQL or REST?](why-choosing-cosmicql-over-graphQL-or-rest)
 - [Fetching data](#fetching-data)
-- [Fields modifiers](#fields-modifiers)
 - [Reserved columns names](#reserved-columns-names)
 - [Reserved tables names](#reserved-tables-names)
 - [Reserved queries names](#reserved-queries-names)
@@ -37,7 +36,7 @@ That's it! Really, if you do not mind this kind of concern, GraphQL is the way t
 
 - [Simple example](#simple-example)
 - [Requesting relations](#requesting-relations)
-- [Fields mutation](#fields-mutation)
+- [Fields modifiers](#fields-modifiers)
 
 ### Simple example
 
@@ -543,6 +542,8 @@ _Certain modifications that are not supported by the database operate on every r
 - [Modifiers usage](#modifiers-usage)
 - [Modifiers list](#modifiers-list)
 
+#### Modifiers usage
+
 Getting the dates of each taks as timestamps:
 
 ```json
@@ -599,7 +600,7 @@ CosmicQl::modifier('timestamp', funtion($input) {
 // ...
 ```
 
-### Modfiers list
+#### Modfiers list
 
 | driver | modifier  | native support | example (input)           | example (output) |
 |--------|-----------|----------------|---------------------------|------------------|

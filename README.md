@@ -216,6 +216,38 @@ CosmisQl::raw('taskCount', "SELECT COUNT(1) AS 'count' FROM task");
 CosmicQl::listen();
 ```
 
+Complicated queries need parameters?
+
+```json
+{
+    "@taskCount": {
+        "where": {
+            "state": 1
+        }
+    }
+}
+```
+
+Which will procduce the following.
+
+```json
+{
+    "taskCount": {
+        "count": 2
+    }
+}
+```
+
+Assuming we have the following server side raw query (this example feauring PHP).
+
+```php
+// ...
+
+CosmicQl::raw('taskCount', "SELECT COUNT(1) AS 'count' FROM task WHERE state = :state");
+
+// ...
+```
+
 Need to make several queries?
 
 ```json

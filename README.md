@@ -609,17 +609,22 @@ CosmicQl::modifier('timestamp', funtion($input) {
 
 #### Modfiers list
 
-| driver | mutator      | native support | example (input)     | example (output) |
-|--------|--------------|----------------|---------------------|------------------|
-| mysql  | uppercase    | ✓              | foo                 | FOO              |
-| mysql  | lowercase    | ✓              | FOO                 | foo              |
-| mysql  | trim         | ✓              |  foo                | foo              |
-| mysql  | encodeBase64 | ✓              | foo                 | Zm9v             |
-| mysql  | decodeBase64 | ✓              | Zm9v                | foo              |
-| mysql  | timestamp    | ✓              | 2018-01-01 15:59:38 | 1514822378       |
-| mysql  | year         | ✓              | 2018-01-01 15:59:38 | 2018             |
-| mysql  | month        | ✓              | 2018-01-01 15:59:38 | 1                |
-| mysql  | day          | ✓              | 2018-01-01 15:59:38 | 1                |
+| modifier     | mysql native support | example (input)     | example (output) |
+|--------------|----------------------|---------------------|------------------|
+| uppercase    | ✓                    | foo bar             | FOO BAR          |
+| lowercase    | ✓                    | FOO BAR             | foo bar          |
+| trim         | ✓                    |  foo bar            | foo bar          |
+| wordcase     |                      | foo bar             | Foo Bar          |
+| encodeBase64 | ✓                    | foo                 | Zm9v             |
+| decodeBase64 | ✓                    | Zm9v                | foo              |
+| timestamp    | ✓                    | 2018-01-01 15:59:38 | 1514822378       |
+| year         | ✓                    | 2018-01-01 15:59:38 | 2018             |
+| month        | ✓                    | 2018-01-01 15:59:38 | 1                |
+| day          | ✓                    | 2018-01-01 15:59:38 | 1                |
+| hour         |                      | 2018-01-01 15:59:38 | 15               |
+| minute       |                      | 2018-01-01 15:59:38 | 59               |
+| second       |                      | 2018-01-01 15:59:38 | 38               |
+| time         |                      | 2018-01-01 15:59:38 | 15:59:38         |
 
 ## Reserved columns names
 

@@ -193,23 +193,7 @@ CosmicQl::connection('default', [
     'driver' => 'mysql'
 ]);
 
-CosmicQl::model('task', [
-    'table' => 'task_task',
-    'primaryKey' => 'id',
-    'foreignKey' => 'task_id',
-    'relations' => [
-        'manyToOne' => ['state']
-    ]
-]);
-
-CosmicQl::model('state', [
-    'table' => 'tastk_state',
-    'primaryKey' => 'id',
-    'foreignKey' => 'state_id',
-    'relations' => [
-        'oneToMany' => ['task']
-    ]
-]);
+// ...
 
 CosmisQl::raw('taskCount', "SELECT COUNT(1) AS 'count' FROM task");
 
@@ -274,9 +258,9 @@ No problem.
         { "id": 3, "name": "Contribute to StackOverflow", "state": 1, "created_at": "2018-06-23T14:41:07+02:00" }
     ],
     "state": [
-        { "id": 1, "name": "pending", "slug": "pending" },
-        { "id": 2, "name": "in progress", "slug": "in-progress" },
-        { "id": 3, "name": "completed", "slug": "completed" }
+        { "id": 1, "name": "pending" },
+        { "id": 2, "name": "in progress" },
+        { "id": 3, "name": "completed" }
     ],
     "taskCount": {
         "count": 3

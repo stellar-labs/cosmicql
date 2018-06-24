@@ -9,6 +9,7 @@ HTTP APIs query language.
 - [Introduction](#introduction)
 - [Why choosing CosmicQL over GraphQL or REST?](why-choosing-cosmicql-over-graphQL-or-rest)
 - [Fetching data](#fetching-data)
+- [Creating-new-data](#creating-new-data)
 - [Reserved columns names](#reserved-columns-names)
 - [Reserved tables names](#reserved-tables-names)
 - [Reserved queries names](#reserved-queries-names)
@@ -648,6 +649,110 @@ CosmicQl::modifier('timestamp', funtion($input) {
 | minute       | ✓                    | 2018-01-01 15:59:38 | 59               |
 | second       | ✓                    | 2018-01-01 15:59:38 | 38               |
 | time         | ✓                    | 2018-01-01 15:59:38 | 15:59:38         |
+
+## Creating new data
+
+We will stick to the task example. Let us create a new task:
+
+```json
+{
+    "task": {
+        "add": [
+            { "name": "add new useful modifiers", "state": 1 }
+        ]
+    }
+}
+```
+
+This will return the list of all the task id that have been created.
+
+```json
+{
+    "task": [5]
+}
+```
+
+If you need, you can add several rows.
+
+```json
+{
+    "task": {
+        "add": [
+            { "name": "add new useful modifiers", "state": 1 },
+            { "name": "buy a tempered glass for my phone", "state": 1 },
+            { "name": "complete my leg day", "state": 1 }
+        ]
+    }
+}
+```
+
+The list of ids will be the following.
+
+```json
+{
+    "task": [5, 6, 7]
+}
+```
+
+You can do several batch insert in one query.
+
+```json
+{
+    "task": {
+        "add": [
+            { "name": "add new useful modifiers", "state": 1 },
+            { "name": "buy a tempered glass for my phone", "state": 1 },
+            { "name": "complete my leg day", "state": 1 }
+        ]
+    },
+    "state": {
+        "add": [
+            { "name": "canceled", "slug": "canceled" }
+        ]
+    }
+}
+```
+
+With the same output.
+
+```json
+{
+    "task": [5, 6, 7],
+    "state": [4]
+}
+```
+
+Inserts can be mixed with others queries like selection.
+
+```json
+{
+    "task": {
+        "add": [
+            { "name": "add new useful modifiers", "state": 1 }
+        ]
+    },
+    "task": {
+        "include": ["name"],
+        "where": {
+            "state": 1
+        }
+    }
+}
+```
+
+With the following result.
+
+```json
+{
+    "task": [5],
+    "task": [
+        { "name": "Finish this standard" },
+        { "name": "Dive more into PhalconPHP" },
+        { "name": "Contribute to StackOverflow" },
+        { "name": "add new useful modifiers" }
+    ]
+}
+```
 
 ## Reserved columns names
 

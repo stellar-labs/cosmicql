@@ -30,7 +30,9 @@ CosmicQL is a thin layer between the database and the view, and rely on a very f
 
 The advantage of CosmicQL is in the fact it requires a very poor learning curve, and very less resource to implement it, both on client and server side.
 
-That's it! Really, if you do not mind this kind of concern, GraphQL is the way to go, REST has unfortunatly made his time (in my point of view).
+The other advantage over GraphQL is it is a lower level language for sending query to the database, meaning that you can do a maximum of task before having to create a raw query.
+
+Finally, it is performance oriented, and not mutation-oriented. This means instead of tracking the modifications and being able to revert them, thing that CosmicQL cannot do, you can leverage some heavy tasks like batch insert and updates, or multiple queries in one single **server** request (but as many database requests as needed of course).
 
 ## Fetching the data
 

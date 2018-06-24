@@ -323,7 +323,7 @@ Data can be filtered as well.
 
 ```json
 {
-    "tasl": {
+    "task": {
         "exclude": ["state"],
         "order": {
             "id": "desc"

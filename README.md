@@ -609,10 +609,17 @@ CosmicQl::modifier('timestamp', funtion($input) {
 
 #### Modfiers list
 
-| driver | modifier  | native support | example (input)           | example (output) |
-|--------|-----------|----------------|---------------------------|------------------|
-| mysql  | uppercase | ✓              | foo                       | FOO              |
-| mysql  | timestamp | ✓              | 2018-01-01T15:59:38+02:00 | 1514822378       |
+| driver | mutator      | native support | example (input)     | example (output) |
+|--------|--------------|----------------|---------------------|------------------|
+| mysql  | uppercase    | ✓              | foo                 | FOO              |
+| mysql  | lowercase    | ✓              | FOO                 | foo              |
+| mysql  | trim         | ✓              |  foo                | foo              |
+| mysql  | encodeBase64 | ✓              | foo                 | Zm9v             |
+| mysql  | decodeBase64 | ✓              | Zm9v                | foo              |
+| mysql  | timestamp    | ✓              | 2018-01-01 15:59:38 | 1514822378       |
+| mysql  | year         | ✓              | 2018-01-01 15:59:38 | 2018             |
+| mysql  | month        | ✓              | 2018-01-01 15:59:38 | 1                |
+| mysql  | day          | ✓              | 2018-01-01 15:59:38 | 1                |
 
 ## Reserved columns names
 

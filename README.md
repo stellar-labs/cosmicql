@@ -253,9 +253,9 @@ No problem.
 ```json
 {
     "task": [
-        { "id": 1, "name": "Finish this standard", "state": 1, "created_at": "2018-01-01T19:38:00+02:00" },
-        { "id": 2, "name": "Dive more into PhalconPHP", "state": 2, "created_at": "2018-03-04T11:21:38+02:00" },
-        { "id": 3, "name": "Contribute to StackOverflow", "state": 1, "created_at": "2018-06-23T14:41:07+02:00" }
+        { "id": 1, "name": "Finish this standard" },
+        { "id": 2, "name": "Dive more into PhalconPHP" },
+        { "id": 3, "name": "Contribute to StackOverflow" }
     ],
     "state": [
         { "id": 1, "name": "pending" },

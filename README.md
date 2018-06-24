@@ -612,7 +612,7 @@ CosmicQl::modifier('timestamp', funtion($input) {
 | driver | modifier  | native support | example (input)           | example (output) |
 |--------|-----------|----------------|---------------------------|------------------|
 | mysql  | uppercase | ✓              | foo                       | FOO              |
-| mysql  | timestamp | ✘              | 2018-01-01T15:59:38+02:00 | 1514822378       |
+| mysql  | timestamp | ✓              | 2018-01-01T15:59:38+02:00 | 1514822378       |
 
 ## Reserved columns names
 

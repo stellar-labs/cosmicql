@@ -74,6 +74,27 @@ We do not use the `state` for the moment, it will be useful only when we will ta
 }
 ```
 
+Note this is not magically returned, the server should have been setup for this. Here is an example with PHP.
+
+```php
+use StellarLabs\CosmicQl;
+
+CosmicQl::connection('default', [
+    'host' => 'localhost',
+    'database' => 'task',
+    'username' => 'root',
+    'password' => '',
+    'charset' => 'utf8',
+    'driver' => 'mysql'
+]);
+
+CosmicQl::model('task', [
+    'table' => 'vendor_task'
+]);
+
+CosmicQl::listen();
+```
+
 Now we have the data that matter for us.
 
 ```json

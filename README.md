@@ -602,13 +602,9 @@ With the follwing result.
 Possibility to add custom mdifiers on the server side (in PHP for instance):
 
 ```php
-// ...
-
 CosmicQl::modifier('timestamp', funtion($input) {
     return (new DateTime($input))->getTimestamp();
 });
-
-// ...
 ```
 
 #### Modfiers list

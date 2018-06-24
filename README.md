@@ -302,11 +302,6 @@ Agregating your data.
 {
     "state": {
         "include": [{"count": "id", "as": "taskCount"}, "name"],
-        "with": {
-            "task": {
-                "include": ["id"]
-            }
-        },
         "groupBy": ["id"]
     }
 }

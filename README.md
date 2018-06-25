@@ -779,9 +779,130 @@ With the following result.
 }
 ```
 
+### Updating data
+
+To update a row, use its id, followed by the fixes.
+
+```json
+{
+    "task": {
+        "fix": [
+            { "id": 1, "name": "Complete this standard", "state_id": 2 }
+        ]
+    }
+}
+```
+
+The `primaryKey` is mandatory both in the message and on the server side (example in PHP):
+
+```php
+use Khalyomede\CosmicQl\MySql as CosmicQl;
+
+// ...
+
+CosmicQl::model('task', [
+    'table' => 'vendor_task',
+    'primaryKey' => 'id'
+]);
+
+// ...
+```
+
+This will return the ids of fixed tasks.
+
+```json
+{
+    "task": [1]
+}
+```
+
+CosmicQL supports batch updates as well.
+
+```json
+{
+    "task": {
+        "fix": [
+            { "id": 1, "name": "Complete this standard", "state_id": 2 },
+            { "id": 2, "name": "Dive into Micro PhalconPHP apps" }
+        ]
+    }
+}
+```
+
+Always returning the ids afterwards.
+
+```json
+{
+    "task": [1, 2]
+}
+```
+
+... Alright, you might want to omit the `primaryKey` in case of special batch update. Got it guys...
+
+```json
+{
+    "task": {
+        "fix": {
+            "name": "task completed"
+        },
+        "where": {
+            "state_id": 1
+        }
+    }
+}
+```
+
+Better?
+
+```json
+{
+    "task": [1, 3]
+}
+```
+
+But beware, for safety reasons, you can only batch update the entire table only with a trivial where clause like `true, true` to force your consent.
+
+```json
+{
+    "task": {
+        "fix": {
+            "state_id": 1
+        },
+        "where": {
+            "true": true
+        }
+    }
+}
+```
+
+You can update a record, and if its it does not exist, automatically create it with the value provided.
+
+_This will only work for sure with relational database that support `INSERT ... ON DUPLICATE KEY UPDATE ...` syntax._
+
+```json
+{
+    "task": {
+        "fixOrCreate": [
+            { "id": 1, "name": "Complete this standard", "state_id": 2 }
+        ]
+    }
+}
+```
+
+With the same result as usual.
+
+```json
+{
+    "task": [1]
+}
+```
+
+_You cannot use the `where` variant because it always expect a `primaryKey` to check if the row does not already exist._
+
 ## Reserved columns names
 
 - `or`
+- `true`
 
 ## Reserved tables names
 

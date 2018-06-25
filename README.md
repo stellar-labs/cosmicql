@@ -616,9 +616,9 @@ With the follwing result.
 ```json
 {
     "task": [
-        { "id": 1, "name": "FINISH THIS STANDARD", "created_at": "2018-01-01T19:38:00+02:00" },
-        { "id": 2, "name": "DIVE MORE INTO PHALCONPHP", "created_at": "2018-03-04T11:21:38+02:00" },
-        { "id": 3, "name": "CONTRIBUTE TO STACKOVERFLOW", "created_at": "2018-06-23T14:41:07+02:00" }
+        { "name": "FINISH THIS STANDARD", "created_at": "2018-01-01T19:38:00+02:00" },
+        { "name": "DIVE MORE INTO PHALCONPHP", "created_at": "2018-03-04T11:21:38+02:00" },
+        { "name": "CONTRIBUTE TO STACKOVERFLOW", "created_at": "2018-06-23T14:41:07+02:00" }
     ]
 }
 ```

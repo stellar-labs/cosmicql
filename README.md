@@ -58,9 +58,9 @@ Ommiting everything, all the rows of this table will be returned, with for each 
 ```json
 {
     "task": [
-        { "id": 1, "name": "Finish this standard", "state": 1, "created_at": "2018-01-01T19:38:00+02:00" },
-        { "id": 2, "name": "Dive more into PhalconPHP", "state": 2, "created_at": "2018-03-04T11:21:38+02:00" },
-        { "id": 3, "name": "Contribute to StackOverflow", "state": 1, "created_at": "2018-06-23T14:41:07+02:00" }
+        { "id": 1, "name": "Finish this standard", "state_id": 1, "created_at": "2018-01-01T19:38:00+02:00" },
+        { "id": 2, "name": "Dive more into PhalconPHP", "state_id": 2, "created_at": "2018-03-04T11:21:38+02:00" },
+        { "id": 3, "name": "Contribute to StackOverflow", "state_id": 1, "created_at": "2018-06-23T14:41:07+02:00" }
     ]
 }
 ```
@@ -70,7 +70,7 @@ We do not use the `state` for the moment, it will be useful only when we will ta
 ```json
 {
     "task": {
-        "exclude": ["state"]
+        "exclude": ["state_id"]
     }
 }
 ```
@@ -113,9 +113,9 @@ We only want to show the task that are pending (state: 1) and not the task in pr
 ```json
 {
     "task": {
-        "exclude": ["state"],
+        "exclude": ["state_id"],
         "where": {
-            "state": 1
+            "state_id": 1
         }
     }
 }
@@ -137,9 +137,9 @@ Ok now let us say we want to filter to the month of june only. Might be a datepi
 ```json
 {
     "task": {
-        "exclude": ["state"],
+        "exclude": ["state_id"],
         "where": {
-            "state": 1,
+            "state_id": 1,
             "created_at": ["between", "2018-01-06", "2018-30-06"]
         }
     }
@@ -161,9 +161,9 @@ Ok now we want the **first** task that have been created in june and that we sho
 ```json
 {
     "task": {
-        "exclude": ["state"],
+        "exclude": ["state_id"],
         "where": {
-            "state": 1,
+            "state_id": 1,
             "created_at": ["between", "2018-01-06", "2018-30-06"]
         },
         "limit": 1
@@ -230,7 +230,7 @@ Complicated queries need parameters?
 {
     "@taskCount": {
         "where": {
-            "state": 1
+            "state_id": 1
         }
     }
 }
@@ -299,9 +299,9 @@ One filter or another?
     "task": {
         "include": ["id", "name"],
         "where": {
-            "state": 1,
+            "state_id": 1,
             "or": {
-                "state": 2
+                "state_id": 2
             }
         }
     }
@@ -313,9 +313,34 @@ Very well.
 ```json
 {
     "task": [
-        { "id": 1, "name": "Finish this standard", "state": 1, "created_at": "2018-01-01T19:38:00+02:00" },
-        { "id": 2, "name": "Dive more into PhalconPHP", "state": 2, "created_at": "2018-03-04T11:21:38+02:00" },
-        { "id": 3, "name": "Contribute to StackOverflow", "state": 1, "created_at": "2018-06-23T14:41:07+02:00" }
+        { "id": 1, "name": "Finish this standard" },
+        { "id": 2, "name": "Dive more into PhalconPHP" },
+        { "id": 3, "name": "Contribute to StackOverflow" }
+    ]
+}
+```
+
+Note this would be the same as:
+
+```json
+{
+    "task": {
+        "include": ["id", "name"],
+        "where": {
+            "state_id": ["in", 1, 2]
+        }
+    }
+}
+```
+
+With the same result.
+
+```json
+{
+    "task": [
+        { "id": 1, "name": "Finish this standard" },
+        { "id": 2, "name": "Dive more into PhalconPHP" },
+        { "id": 3, "name": "Contribute to StackOverflow" }
     ]
 }
 ```
@@ -348,7 +373,7 @@ Data can be filtered as well.
 ```json
 {
     "task": {
-        "exclude": ["state"],
+        "exclude": ["state_id"],
         "order": {
             "id": "desc"
         }
@@ -377,7 +402,7 @@ We will incorporate it back to our result list, and to make it more clear we wil
 ```json
 {
     "task": {
-        "exclude": ["state"],
+        "exclude": ["state_id"],
         "with": {
             "state": {
                 "include": ["name"]
@@ -425,7 +450,7 @@ Let us abstract ourselves to only the pending tasks. We should filter the relati
 ```json
 {
     "task": {
-        "exclude": ["state"],
+        "exclude": ["state_id"],
         "with": {
             "state": {
                 "include": ["name"],
@@ -468,7 +493,7 @@ Sometimes the relation is not mandatory.
 ```json
 {
     "task": {
-        "exclude": ["state"],
+        "exclude": ["state_id"],
         "maybeWith": {
             "state": {
                 "include": ["name"]
@@ -522,7 +547,7 @@ No relation setup in the server-side? Fear no more.
 ```json
 {
     "task": {
-        "exclude": ["state"],
+        "exclude": ["state_id"],
         "with": {
             "state": {
                 "on": {
@@ -658,7 +683,7 @@ We will stick to the task example. Let us create a new task:
 {
     "task": {
         "add": [
-            { "name": "add new useful modifiers", "state": 1 }
+            { "name": "add new useful modifiers", "state_id": 1 }
         ]
     }
 }
@@ -678,9 +703,9 @@ If you need, you can add several rows.
 {
     "task": {
         "add": [
-            { "name": "add new useful modifiers", "state": 1 },
-            { "name": "buy a tempered glass for my phone", "state": 1 },
-            { "name": "complete my leg day", "state": 1 }
+            { "name": "add new useful modifiers", "state_id": 1 },
+            { "name": "buy a tempered glass for my phone", "state_id": 1 },
+            { "name": "complete my leg day", "state_id": 1 }
         ]
     }
 }
@@ -700,9 +725,9 @@ You can do several batch insert in one query.
 {
     "task": {
         "add": [
-            { "name": "add new useful modifiers", "state": 1 },
-            { "name": "buy a tempered glass for my phone", "state": 1 },
-            { "name": "complete my leg day", "state": 1 }
+            { "name": "add new useful modifiers", "state_id": 1 },
+            { "name": "buy a tempered glass for my phone", "state_id": 1 },
+            { "name": "complete my leg day", "state_id": 1 }
         ]
     },
     "state": {
@@ -728,13 +753,13 @@ Inserts can be mixed with others queries like selection.
 {
     "task": {
         "add": [
-            { "name": "add new useful modifiers", "state": 1 }
+            { "name": "add new useful modifiers", "state_id": 1 }
         ]
     },
     "task": {
         "include": ["name"],
         "where": {
-            "state": 1
+            "state_id": 1
         }
     }
 }

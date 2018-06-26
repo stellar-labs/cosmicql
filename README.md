@@ -11,6 +11,7 @@ HTTP APIs query language.
 - [Fetching data](#fetching-data)
 - [Creating new data](#creating-new-data)
 - [Updating data](#updating-data)
+- []()
 - [Reserved columns names](#reserved-columns-names)
 - [Reserved tables names](#reserved-tables-names)
 - [Reserved queries names](#reserved-queries-names)
@@ -808,7 +809,7 @@ _This will only work for sure with relational database that support `INSERT ... 
 ```json
 {
     "task": {
-        "fixOrCreate": [
+        "fixOrAdd": [
             { "id": 1, "name": "Complete this standard", "state_id": 2 }
         ]
     }

@@ -764,7 +764,7 @@ Always returning the ids afterwards.
 }
 ```
 
-... Alright, you might want to omit the `primaryKey` in case of special batch update. Got it guys...
+... Alright, you might want to omit the `primaryKey` in case of conditionnal batch update. Got it guys...
 
 ```json
 {

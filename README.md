@@ -76,27 +76,6 @@ We do not use the `state` for the moment, it will be useful only when we will ta
 }
 ```
 
-Note this is not magically returned, the server should have been setup for this. Here is an example with PHP.
-
-```php
-use StellarLabs\CosmicQl;
-
-CosmicQl::connection('default', [
-    'host' => 'localhost',
-    'database' => 'task',
-    'username' => 'root',
-    'password' => '',
-    'charset' => 'utf8',
-    'driver' => 'mysql'
-]);
-
-CosmicQl::model('task', [
-    'table' => 'vendor_task'
-]);
-
-CosmicQl::listen();
-```
-
 Now we have the data that matter for us.
 
 ```json
@@ -204,27 +183,6 @@ We will get this response.
 }
 ```
 
-With the following server setup (PHP in this example).
-
-```php
-use StellarLabs\ComsmicQl;
-
-CosmicQl::connection('default', [
-    'host' => 'localhost',
-    'database' => 'task',
-    'username' => 'root',
-    'password' => '',
-    'charset' => 'utf8',
-    'driver' => 'mysql'
-]);
-
-// ...
-
-CosmisQl::raw('taskCount', "SELECT COUNT(1) AS 'count' FROM task");
-
-CosmicQl::listen();
-```
-
 Complicated queries need parameters?
 
 ```json
@@ -245,16 +203,6 @@ Which will produce the following.
         "count": 2
     }
 }
-```
-
-Assuming we have the following server side raw query (this example feauring PHP).
-
-```php
-// ...
-
-CosmicQl::raw('taskCount', "SELECT COUNT(1) AS 'count' FROM task WHERE state = :state");
-
-// ...
 ```
 
 Need to make several queries?
@@ -649,14 +597,6 @@ With the follwing result.
 }
 ```
 
-Possibility to add custom mdifiers on the server side (in PHP for instance):
-
-```php
-CosmicQl::modifier('timestamp', funtion($input) {
-    return (new DateTime($input))->getTimestamp();
-});
-```
-
 #### Modfiers list
 
 | modifier     | mysql native support | example (input)     | example (output) |
@@ -792,21 +732,6 @@ To update a row, use its id, followed by the fixes.
         ]
     }
 }
-```
-
-The `primaryKey` is mandatory both in the message and on the server side (example in PHP):
-
-```php
-use Khalyomede\CosmicQl\MySql as CosmicQl;
-
-// ...
-
-CosmicQl::model('task', [
-    'table' => 'vendor_task',
-    'primaryKey' => 'id'
-]);
-
-// ...
 ```
 
 This will return the ids of fixed tasks.

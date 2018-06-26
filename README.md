@@ -11,7 +11,8 @@ HTTP APIs query language.
 - [Fetching data](#fetching-data)
 - [Creating new data](#creating-new-data)
 - [Updating data](#updating-data)
-- []()
+- [Deleting data](#deleting-data)
+- [Restoring data](#restoring-data)
 - [Reserved columns names](#reserved-columns-names)
 - [Reserved tables names](#reserved-tables-names)
 - [Reserved queries names](#reserved-queries-names)
@@ -825,6 +826,135 @@ With the same result as usual.
 ```
 
 _You cannot use the `where` variant because it always expect a `primaryKey` to check if the row does not already exist._
+
+## Deleting data
+
+Deleting a data is not the removal of the data. It is just a convenient way to keep the data in your database, but hide it from your select queries. Think of it like a trash bin.
+
+```json
+{
+    "task": {
+        "trash": [1, 3]
+    }
+}
+```
+
+For convenience, the ids of the trashed rows are returned.
+
+```json
+{
+    "task": [1, 3]
+}
+```
+
+Of course, this supports trashing across several tables.
+
+```json
+{
+    "task": {
+        "trash": [1, 3]
+    },
+    "state": {
+        "trash": [4, 5]
+    }
+}
+```
+
+With the same result.
+
+```json
+{
+    "task": [1, 3],
+    "state": [4, 5]
+}
+```
+
+And of course you can mix the query types.
+
+```json
+{
+    "task": {
+        "include": ["id", "name"]
+    },
+    "state": {
+        "trash": [4, 5]
+    }
+}
+```
+
+With the expected return value.
+
+```json
+{
+    "task": [
+        { "name": "Finish this standard" },
+        { "name": "Dive more into PhalconPHP" },
+        { "name": "Contribute to StackOverflow" },
+        { "name": "add new useful modifiers" }
+    ],
+    "state": [4, 5]
+}
+```
+
+## Restoring data
+
+After trashing one or several rows, you can revert this.
+
+```json
+{
+    "task": {
+        "restore": [1, 3]
+    }
+}
+```
+
+It returns the ids of the restored rows.
+
+```json
+{
+    "task": [1, 3]
+}
+```
+
+Again, this supports muliple restoring like every actions.
+
+```json
+{
+    "task": {
+        "restore": [1, 3]
+    },
+    "state": {
+        "restore": [4, 5]
+    }
+}
+```
+
+It also supports variant query actions... yes like every others actions how did you guessed ?!
+
+```json
+{
+    "task": {
+        "restore": [1, 3]
+    },
+    "task": {
+        "include": ["id", "name"]
+    }
+}
+```
+
+With the regular results.
+
+```json
+{
+    "task": [1, 3],
+    "task": [
+        { "name": "Finish this standard" },
+        { "name": "Dive more into PhalconPHP" },
+        { "name": "Contribute to StackOverflow" },
+        { "name": "add new useful modifiers" }   
+    ]
+}
+```
 
 ## Reserved columns names
 

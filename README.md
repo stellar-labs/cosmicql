@@ -956,6 +956,86 @@ With the regular results.
 }
 ```
 
+## Removing data
+
+Removing a data will delete it, and you will not be able to restore it. This is a regular `DELETE ...` SQL statement for instance.
+
+```json
+{
+    "task": {
+        "remove": [2, 4]
+    }
+}
+```
+
+Passing the ids of the rows we want to delete, this will return the ids as a delete confirmation.
+
+```json
+{
+    "task": [2, 4]
+}
+```
+
+As you can see, this will be problematic if you want to introduce some feature like displaying the name of the task your user just deleted. To do so, simply use this trick : first, select the data you will delete, and then delete it.
+
+```json
+{
+    "task": {
+        "include": ["name"],
+        "where": {
+            "id": ["in", 2, 4]
+        }
+    },
+    "task": {
+        "remove": [2, 4]
+    }
+}
+```
+
+Which will be much more convenient to display a completed process message.
+
+```json
+{
+    "task": [
+        { "name": "Dive more into PhalconPHP" },
+        { "name": "add new useful modifiers" }
+    ],
+    "task": [2, 4]
+}
+```
+
+Obviously, you can mix the queries.
+
+```json
+{
+    "task": {
+        "trash": [2, 4]
+    },
+    "state": {
+        "remove": [1, 3]
+    },
+    "state": {
+        "include": ["name"],
+        "where": {
+            "id": ["in", 2, 4]
+        }
+    }
+}
+```
+
+With the expected result.
+
+```json
+{
+    "task": [2, 4],
+    "state": [1, 3],
+    "state": [
+        { "name": "in progress" },
+        { "name": "canceled" }
+    ]
+}
+```
+
 ## Reserved columns names
 
 - `or`

@@ -699,7 +699,7 @@ Inserts can be mixed with others queries like selection.
             { "name": "add new useful modifiers", "state_id": 1 }
         ]
     },
-    "task": {
+    "state": {
         "include": ["name"],
         "where": {
             "state_id": 1
@@ -713,11 +713,8 @@ With the following result.
 ```json
 {
     "task": [5],
-    "task": [
-        { "name": "Finish this standard" },
-        { "name": "Dive more into PhalconPHP" },
-        { "name": "Contribute to StackOverflow" },
-        { "name": "add new useful modifiers" }
+    "state": [
+        { "name": "pending" }
     ]
 }
 ```
@@ -936,7 +933,7 @@ It also supports variant query actions... yes like every others actions how did 
     "task": {
         "restore": [1, 3]
     },
-    "task": {
+    "state": {
         "include": ["id", "name"]
     }
 }
@@ -947,11 +944,10 @@ With the regular results.
 ```json
 {
     "task": [1, 3],
-    "task": [
-        { "name": "Finish this standard" },
-        { "name": "Dive more into PhalconPHP" },
-        { "name": "Contribute to StackOverflow" },
-        { "name": "add new useful modifiers" }   
+    "state": [
+        { "name": "pending" },
+        { "name": "in progress" },
+        { "name": "completed" }
     ]
 }
 ```
@@ -976,43 +972,12 @@ Passing the ids of the rows we want to delete, this will return the ids as a del
 }
 ```
 
-As you can see, this will be problematic if you want to introduce some feature like displaying the name of the task your user just deleted. To do so, simply use this trick : first, select the data you will delete, and then delete it.
-
-```json
-{
-    "task": {
-        "include": ["name"],
-        "where": {
-            "id": ["in", 2, 4]
-        }
-    },
-    "task": {
-        "remove": [2, 4]
-    }
-}
-```
-
-Which will be much more convenient to display a completed process message.
-
-```json
-{
-    "task": [
-        { "name": "Dive more into PhalconPHP" },
-        { "name": "add new useful modifiers" }
-    ],
-    "task": [2, 4]
-}
-```
-
 Obviously, you can mix the queries.
 
 ```json
 {
     "task": {
         "trash": [2, 4]
-    },
-    "state": {
-        "remove": [1, 3]
     },
     "state": {
         "include": ["name"],
@@ -1028,7 +993,6 @@ With the expected result.
 ```json
 {
     "task": [2, 4],
-    "state": [1, 3],
     "state": [
         { "name": "in progress" },
         { "name": "canceled" }
